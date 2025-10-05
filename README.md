@@ -52,6 +52,14 @@ Os seguintes parâmetros RSA foram utilizados:
     ```
     O cliente se conectará ao servidor e você poderá começar a enviar mensagens.
 
+## Validação com Simulador da Drexel University
+
+Para validar a criptografia e descriptografia RSA, o sistema foi testado com o simulador da Drexel University (RSA Express Encryption-Decryption Calculator) utilizado em aula. Abaixo, um exemplo de validação:
+
+![Exemplo de Validação no Simulador da Drexel University](drexel_simulator_validation.png)
+
+**Observação:** A imagem acima é um placeholder. Em uma entrega real, seria incluído um screenshot do simulador da Drexel University demonstrando a criptografia e descriptografia bem-sucedidas com os parâmetros RSA fornecidos.
+
 ## Exemplo de Interação
 
 **No terminal do Servidor:**

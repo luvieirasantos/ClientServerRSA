@@ -3,7 +3,7 @@ Nomes e RMs dos Integrantes:
 - Melissa Pereira: 555656
 - Diego Furigo
 
-Link do GitHub: [A SER INSERIDO APÓS A CRIAÇÃO DO REPOSITÓRIO]
+Link do GitHub: https://github.com/luvieirasantos/ClientServerRSA
 
 IDE Utilizada: IntelliJ IDEA (simulado no ambiente sandbox com VS Code e terminal)
 
