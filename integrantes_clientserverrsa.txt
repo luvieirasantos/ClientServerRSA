@@ -1,0 +1,9 @@
+Nomes e RMs dos Integrantes:
+- Lu Vieira Santos: 558935
+- Melissa Pereira: 555656
+- Diego Furigo
+
+Link do GitHub: [A SER INSERIDO APÓS A CRIAÇÃO DO REPOSITÓRIO]
+
+IDE Utilizada: IntelliJ IDEA (simulado no ambiente sandbox com VS Code e terminal)
+
