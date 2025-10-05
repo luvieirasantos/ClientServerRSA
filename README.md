@@ -1,6 +1,6 @@
 # Projeto Client-Server com Criptografia RSA
 
-Este projeto implementa um sistema de comunicação Client-Server utilizando Sockets TCP e criptografia RSA para a troca de mensagens.
+Este projeto implementa um sistema de comunicação Client-Server utilizando Sockets TCP e criptografia RSA para a troca de mensagens. A lógica de conexão e comunicação é gerenciada pelas classes `Server.java` e `Client.java`, que atuam como a "classe de Conexão" solicitada, estabelecendo e mantendo a comunicação TCP.
 
 ## Funcionalidades
 
