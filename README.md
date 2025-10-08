@@ -58,39 +58,64 @@ Para validar a criptografia e descriptografia RSA, o sistema foi testado com o s
 
 ![Exemplo de Validação no Simulador da Drexel University](drexel_simulator_validation.png)
 
-**Observação:** A imagem acima é um placeholder. Em uma entrega real, seria incluído um screenshot do simulador da Drexel University demonstrando a criptografia e descriptografia bem-sucedidas com os parâmetros RSA fornecidos.
 
 ## Exemplo de Interação
 
 **No terminal do Servidor:**
 
-```
-Servidor iniciado na porta 12345
-Chaves RSA do Servidor:
-  n (Módulo): 391
-  e (Expoente Público): 3
-  d (Expoente Privado): 235
-Aguardando conexão do cliente...
-Cliente conectado: 127.0.0.1
-Chave pública do servidor enviada ao cliente.
-Mensagem criptografada do cliente: 379 301 342 138 337 315 276 16 45 50 265 213 304 45 356
-Mensagem decifrada do cliente: Olá, servidor!
-Resposta criptografada do servidor enviada: 236 16 36 276 79 273 16 37 315 45 16 228 16 55 265 213 79 315 228 304 37 315 276 77 228 16 276 276 304 356
-```
+
+![Exemplo no terminal](docs\image.png)
+
 
 **No terminal do Cliente:**
 
+![Exemplo no terminal](docs\image2.png)
+
+## Etapas do Fluxo
+
+### 1. Inicialização do Servidor
+- Servidor iniciado na porta 12345
+- Chaves RSA do Servidor exibidas
+- Aguardando conexão do cliente...
+
+### 2. Conexão do Cliente
+- Cliente iniciado
+- Chaves RSA do Cliente exibidas
+- Conectado ao servidor em localhost:12345
+
+### 3. Troca de Chaves Públicas
+- Cliente conectado: 127.0.0.1 (no servidor)
+- Chave pública do servidor enviada ao cliente (n=391, e=3)
+- Chave pública do servidor recebida: n=391, e=3 (no cliente)
+
+### 4. Comunicação Criptografada
+- Digite sua mensagem para o servidor (ou 'exit' para sair): [usuário digita mensagem]
+- Mensagem criptografada do cliente enviada: [valores criptografados]
+- Mensagem criptografada do cliente: [valores] (no servidor)
+- Mensagem decifrada do cliente: [mensagem original]
+- Resposta criptografada do servidor enviada: [valores]
+- Resposta criptografada do servidor: [valores] (no cliente)
+- Resposta decifrada do servidor: Mensagem recebida com sucesso!
+
+### Diagrama Simples do Fluxo
+
 ```
-Cliente iniciado.
-Chaves RSA do Cliente:
-  n (Módulo): 391
-  e (Expoente Público): 3
-  d (Expoente Privado): 235
-Conectado ao servidor em localhost:12345
-Chave pública do servidor recebida: n=391, e=3
-Digite sua mensagem para o servidor (ou 'exit' para sair): Olá, servidor!
-Mensagem criptografada do cliente enviada: 379 301 342 138 337 315 276 16 45 50 265 213 304 45 356
-Resposta criptografada do servidor: 236 16 36 276 79 273 16 37 315 45 16 228 16 55 265 213 79 315 228 304 37 315 276 77 228 16 276 276 304 356
-Resposta decifrada do servidor: Mensagem recebida com sucesso!
+[Servidor] ---- Inicia na porta 12345 ----> [Aguarda Conexão]
+     |
+     | <---- Conecta (Cliente) ---- [Cliente] ---- Inicia e conecta
+     |
+     | ---- Envia chave pública ---->
+     | <---- Recebe chave pública ----
+     |
+     | <---- Envia mensagem criptografada ----
+     | ---- Recebe e descriptografa ----
+     | ---- Envia resposta criptografada ---->
+     | <---- Recebe e descriptografa ----
+     |
+     | ---- Fecha conexão ----> [Fim]
 ```
+
+![Exemplo no terminal](docs\create_ferramenta.png)
+
+![Exemplo no terminal](docs\Read_ferramenta.png)
 

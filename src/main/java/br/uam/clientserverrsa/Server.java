@@ -25,19 +25,12 @@ public class Server {
         System.out.println("  e (Expoente Público): " + serverRSA.getE());
         System.out.println("  d (Expoente Privado): " + serverRSA.getD());
 
-        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
-            System.out.println("Aguardando conexão do cliente...");
-            Socket clientSocket = serverSocket.accept();
-            System.out.println("Cliente conectado: " + clientSocket.getInetAddress().getHostAddress());
-
-            // Streams para comunicação
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+        try (ConexaoTCP conexao = new ConexaoTCP(PORT)) {
 
             // 1. Troca de chaves públicas
             // Servidor envia sua chave pública (n, e) para o cliente
-            out.println(serverRSA.getN().toString());
-            out.println(serverRSA.getE().toString());
+            conexao.enviar(serverRSA.getN().toString());
+            conexao.enviar(serverRSA.getE().toString());
             System.out.println("Chave pública do servidor enviada ao cliente.");
 
             // Cliente envia sua chave pública (n_client, e_client) para o servidor
@@ -54,7 +47,7 @@ public class Server {
 
             while (true) {
                 // Recebe mensagem criptografada do cliente
-                clientMessage = in.readLine();
+                clientMessage = conexao.receber();
                 if (clientMessage == null || clientMessage.equalsIgnoreCase("exit")) {
                     System.out.println("Cliente desconectou.");
                     break;
@@ -66,12 +59,11 @@ public class Server {
                 // Envia resposta criptografada para o cliente
                 serverResponse = "Mensagem recebida com sucesso!";
                 String encryptedServerResponse = serverRSA.encrypt(serverResponse);
-                out.println(encryptedServerResponse);
+                conexao.enviar(encryptedServerResponse);
                 System.out.println("Resposta criptografada do servidor enviada: " + encryptedServerResponse);
             }
 
             scanner.close();
-            clientSocket.close();
         } catch (IOException ex) {
             System.err.println("Erro no servidor: " + ex.getMessage());
         }

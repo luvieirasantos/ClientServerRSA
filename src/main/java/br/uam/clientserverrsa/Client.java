@@ -26,17 +26,12 @@ public class Client {
         System.out.println("  e (Expoente Público): " + clientRSA.getE());
         System.out.println("  d (Expoente Privado): " + clientRSA.getD());
 
-        try (Socket socket = new Socket(SERVER_ADDRESS, PORT)) {
-            System.out.println("Conectado ao servidor em " + SERVER_ADDRESS + ":" + PORT);
-
-            // Streams para comunicação
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        try (ConexaoTCP conexao = new ConexaoTCP(SERVER_ADDRESS, PORT)) {
 
             // 1. Troca de chaves públicas
             // Cliente recebe a chave pública (n, e) do servidor
-            BigInteger serverN = new BigInteger(in.readLine());
-            BigInteger serverE = new BigInteger(in.readLine());
+            BigInteger serverN = new BigInteger(conexao.receber());
+            BigInteger serverE = new BigInteger(conexao.receber());
             RSA serverRSAForClient = new RSA(serverN, serverE, null); // Cliente só precisa da chave pública do servidor para criptografar para ele
             System.out.println("Chave pública do servidor recebida: n=" + serverN + ", e=" + serverE);
 
@@ -55,17 +50,17 @@ public class Client {
                 clientMessage = scanner.nextLine();
 
                 if (clientMessage.equalsIgnoreCase("exit")) {
-                    out.println("exit");
+                    conexao.enviar("exit");
                     break;
                 }
 
                 // Envia mensagem criptografada para o servidor
                 String encryptedClientMessage = serverRSAForClient.encrypt(clientMessage);
-                out.println(encryptedClientMessage);
+                conexao.enviar(encryptedClientMessage);
                 System.out.println("Mensagem criptografada do cliente enviada: " + encryptedClientMessage);
 
                 // Recebe resposta criptografada do servidor
-                serverResponse = in.readLine();
+                serverResponse = conexao.receber();
                 System.out.println("Resposta criptografada do servidor: " + serverResponse);
                 String decryptedServerResponse = clientRSA.decrypt(serverResponse);
                 System.out.println("Resposta decifrada do servidor: " + decryptedServerResponse);
