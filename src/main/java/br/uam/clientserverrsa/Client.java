@@ -36,9 +36,9 @@ public class Client {
             System.out.println("Chave pública do servidor recebida: n=" + serverN + ", e=" + serverE);
 
             // Cliente envia sua chave pública (n, e) para o servidor
-            // out.println(clientRSA.getN().toString());
-            // out.println(clientRSA.getE().toString());
-            // System.out.println("Chave pública do cliente enviada ao servidor.");
+            conexao.enviar(clientRSA.getN().toString());
+            conexao.enviar(clientRSA.getE().toString());
+            System.out.println("Chave pública do cliente enviada ao servidor.");
 
             // 2. Comunicação de dados criptografados
             Scanner scanner = new Scanner(System.in);

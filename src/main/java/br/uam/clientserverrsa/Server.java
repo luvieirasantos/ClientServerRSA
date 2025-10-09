@@ -34,11 +34,10 @@ public class Server {
             System.out.println("Chave pública do servidor enviada ao cliente.");
 
             // Cliente envia sua chave pública (n_client, e_client) para o servidor
-            // Para simplificar, neste exemplo, o cliente usará a mesma chave pública do servidor para criptografar para o servidor.
-            // Em um cenário real, o cliente geraria sua própria chave pública/privada.
-            // BigInteger clientN = new BigInteger(in.readLine());
-            // BigInteger clientE = new BigInteger(in.readLine());
-            // RSA clientRSAForServer = new RSA(clientN, clientE, null); // Servidor só precisa da chave pública do cliente para criptografar para ele
+            BigInteger clientN = new BigInteger(conexao.receber());
+            BigInteger clientE = new BigInteger(conexao.receber());
+            RSA clientRSAForServer = new RSA(clientN, clientE, null); // Servidor só precisa da chave pública do cliente para criptografar para ele
+            System.out.println("Chave pública do cliente recebida: n=" + clientN + ", e=" + clientE);
 
             // 2. Comunicação de dados criptografados
             Scanner scanner = new Scanner(System.in);
@@ -58,7 +57,7 @@ public class Server {
 
                 // Envia resposta criptografada para o cliente
                 serverResponse = "Mensagem recebida com sucesso!";
-                String encryptedServerResponse = serverRSA.encrypt(serverResponse);
+                String encryptedServerResponse = clientRSAForServer.encrypt(serverResponse);
                 conexao.enviar(encryptedServerResponse);
                 System.out.println("Resposta criptografada do servidor enviada: " + encryptedServerResponse);
             }

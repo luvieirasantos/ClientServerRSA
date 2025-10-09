@@ -23,34 +23,47 @@ Os seguintes parâmetros RSA foram utilizados:
 
 ### Pré-requisitos
 
-- Java Development Kit (JDK) 11 ou superior
+- Java Development Kit (JDK) 17 ou superior
 - Apache Maven
+- PostgreSQL database (local or cloud, e.g., Render)
+
+### Configuração do Banco de Dados
+
+1. **Para desenvolvimento local:**
+   - Instale PostgreSQL localmente.
+   - Crie um banco de dados.
+   - Configure as credenciais no arquivo `src/main/resources/application-dev.yml`.
+   - Execute a aplicação com perfil dev: `mvn spring-boot:run -Dspring-boot.run.profiles=dev`
+
+2. **Para produção (Render):**
+   - Crie um banco PostgreSQL no Render.
+   - Obtenha a URL externa do banco.
+   - Configure as variáveis de ambiente:
+     - `SPRING_DATASOURCE_URL=jdbc:postgresql://dpg-d3jgpt49c44c73bs8krg-a:5432/clienteserverrsa?sslmode=require`
+     - `SPRING_DATASOURCE_USERNAME=clienteserverrsa_user`
+     - `SPRING_DATASOURCE_PASSWORD=Wv2NYEdFTGFD08ErP3GVeq4Jf0wW3zst`
+     - `PORT=8080` (ou conforme necessário)
 
 ### Passos
 
 1.  **Navegue até o diretório do projeto:**
     ```bash
-    cd /home/ubuntu/checkpoint_java/ClientServerRSA
+    cd ClientServerRSA
     ```
 
-2.  **Compile o projeto Maven:**
+2.  **Compile e execute a aplicação Spring Boot:**
     ```bash
-    mvn clean install
+    mvn spring-boot:run
+    ```
+    Para desenvolvimento local com perfil dev:
+    ```bash
+    mvn spring-boot:run -Dspring-boot.run.profiles=dev
     ```
 
-3.  **Inicie o Servidor:**
-    Abra um terminal e execute:
-    ```bash
-    java -jar target/ClientServerRSA-1.0-SNAPSHOT.jar
-    ```
-    O servidor iniciará e aguardará a conexão do cliente.
-
-4.  **Inicie o Cliente:**
-    Abra **outro** terminal e execute:
-    ```bash
-    java -cp target/ClientServerRSA-1.0-SNAPSHOT.jar br.uam.clientserverrsa.Client
-    ```
-    O cliente se conectará ao servidor e você poderá começar a enviar mensagens.
+3.  **Para executar o cliente/servidor RSA via console (opcional):**
+    - Compile: `mvn clean package -DskipTests`
+    - Servidor: `java -cp target/classes br.uam.clientserverrsa.Server`
+    - Cliente (em outro terminal): `java -cp target/classes br.uam.clientserverrsa.Client`
 
 ## Validação com Simulador da Drexel University
 
